@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Covid 19 Sentiment detection</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.7.2/font/bootstrap-icons.css">    
+    <link rel="stylesheet" href="mystyle.css">
+</head>
+<style>
+.form__group {
+  position: relative;
+  padding: 15px 0 0;
+  margin-top: 10px;
+  width: 50%;
+}
+
+.form__field {
+  font-family: inherit;
+  width: 100%;
+  border: 0;
+  border-bottom: 2px solid #9b9b9b;
+  outline: 0;
+  font-size: 1.3rem;
+  color: #fff;
+  padding: 7px 0;
+  background: transparent;
+  transition: border-color 0.2s;
+
+  &::placeholder {
+    color: transparent;
+  }
+
+  &:placeholder-shown ~ .form__label {
+    font-size: 1.3rem;
+    cursor: text;
+    top: 20px;
+  }
+}
+
+.form__label {
+  position: absolute;
+  top: 0;
+  display: block;
+  transition: 0.2s;
+  font-size: 1rem;
+  color:  #9b9b9b;
+}
+
+.form__field:focus {
+  ~ .form__label {
+    position: absolute;
+    top: 0;
+    display: block;
+    transition: 0.2s;
+    font-size: 1rem;
+    color: #11998e;
+    font-weight:700;    
+  }
+  padding-bottom: 6px;  
+  font-weight: 700;
+  border-width: 3px;
+  border-image: linear-gradient(to right, #11998e, #38ef7d);
+  border-image-slice: 1;
+}
+/* reset input */
+.form__field{
+  &:required,&:invalid { box-shadow:none; }
+}
+/* demo */
+body {
+  font-family: 'Poppins', sans-serif; 
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  font-size: 1.5rem;
+  background-color:#222222;
+}
+    </style>
+<body>
+    <div id="result"></div>
+    
+    
+   
+    <div class="form__group field">
+        <form method="POST" action="submit">
+        <input type="input"  class="form__field" placeholder="text" name="text" id='text' required />
+        <label for="name" class="form__label">Text</label>
+    </form>
+      </div>
+      <script>
+        var result="{{result}}"
+        var d=document.getElementById("result")
+        var child = d.lastElementChild; 
+        var t =document.getElementById("text")
+        
+        while (child) {
+            d.removeChild(child);
+            child = d.lastElementChild;
+        }
+        if (result=="Negative"){
+            d.innerHTML= '<span id="boot-icon" class="bi bi-emoji-frown" style="font-size: 125px; color: rgb(243, 22, 18);"></span>';
+            t.innerText="{{text}}"
+            t.value="{{text}}"
+
+        }else if(result=="Positive"){
+            d.innerHTML='<span id="boot-icon" class="bi bi-emoji-smile" style="font-size: 125px; color: rgb(18, 243, 37);"></span>';
+            t.innerText="{{text}}"
+            t.value="{{text}}"
+        }else if(result=="Neutral"){
+            d.innerHTML='<span id="boot-icon" class="bi bi-emoji-neutral" style="font-size: 125px; color: rgb(243, 156, 18);"></span>';
+            t.innerText="{{text}}"
+            t.value="{{text}}"
+        }
+      </script>
+        
+      
+</body>
+</html>
